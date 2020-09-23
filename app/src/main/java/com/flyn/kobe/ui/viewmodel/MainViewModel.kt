@@ -24,8 +24,7 @@ class MainViewModel : ViewModel() {
         try {
             val packageInfo = context.applicationContext.packageManager.getPackageInfo(context.packageName, 0)
             version.value = "Version：" + packageInfo.versionName
-        }
-        catch (e: PackageManager.NameNotFoundException) {
+        } catch (e: PackageManager.NameNotFoundException) {
             Log.e("KOBE", "getVersion failed", e)
         }
     }
@@ -41,8 +40,7 @@ class MainViewModel : ViewModel() {
                     RetrofitBuilder().buildRetrofit(HttpServiceApi::class.java).getBannerData()
                 }
                 bannerData.value = data.result
-            }
-            catch (e: Exception) {
+            } catch (e: Exception) {
             }
         }
 

@@ -3,12 +3,15 @@ package com.flyn.kobe.ui.activity
 import android.os.Bundle
 import android.widget.ImageView
 import androidx.activity.viewModels
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.flyn.kobe.R
 import com.flyn.kobe.databinding.ActivityMainBinding
 import com.flyn.kobe.ui.adapter.BannerImageAdapter
 import com.flyn.kobe.ui.viewmodel.MainViewModel
+import com.jaeger.library.StatusBarUtil
 import com.youth.banner.indicator.CircleIndicator
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -16,6 +19,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private val viewModel by viewModels<MainViewModel> { defaultViewModelProviderFactory }
+    private lateinit var actionBarDrawerToggle: ActionBarDrawerToggle
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,14 +52,20 @@ class MainActivity : AppCompatActivity() {
             banner?.let {
                 it.addBannerLifecycleObserver(this)
                 it.indicator = CircleIndicator(this)
-                it.setBannerRound(20f)
                 it.adapter = adapter
             }
         })
     }
 
     private fun initView() {
+        StatusBarUtil.setColorForDrawerLayout(this, binding.drawerLayout, ContextCompat.getColor(this, android.R.color.transparent), 0)
+        StatusBarUtil.setTranslucentForDrawerLayout(this, binding.drawerLayout, 0)
 
+        actionBarDrawerToggle = ActionBarDrawerToggle(
+            this, binding.drawerLayout, binding.toolbar, 0, 0
+        )
+        binding.drawerLayout.addDrawerListener(actionBarDrawerToggle)
+        actionBarDrawerToggle.syncState()
     }
 
     private fun initData() {

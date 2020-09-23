@@ -73,6 +73,10 @@ dependencies {
     implementation "com.github.bumptech.glide:glide:4.11.0"
     kapt "com.github.bumptech.glide:compiler:4.11.0"
 
+    //https://github.com/youth5201314/banner
     implementation 'com.youth.banner:banner:2.1.0'
+
+    //https://github.com/laobie/StatusBarUtil
+    implementation 'com.jaeger.statusbarutil:library:1.5.1'
 
 }
