@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/main_fragment">
+
+
+    <fragment
+        android:id="@+id/main_fragment"
+        android:name="com.flyn.kobe.ui.fragment.MainFragment">
+    </fragment>
+
+    <fragment
+        android:id="@+id/fav_fragment"
+        android:name="com.flyn.kobe.ui.fragment.FavFragment">
+    </fragment>
+</navigation>
