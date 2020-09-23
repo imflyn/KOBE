@@ -7,6 +7,10 @@
             android:id="@+id/fav_fragment"
             android:icon="@mipmap/ic_fav"
             android:title="收藏" />
+        <item
+            android:id="@+id/fav_fragment2"
+            android:icon="@mipmap/ic_fav"
+            android:title="收藏2" />
 
     </group>
 

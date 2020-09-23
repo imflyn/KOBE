@@ -7,7 +7,10 @@ import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.flyn.kobe.R
 import com.flyn.kobe.databinding.ActivityMainBinding
+import com.flyn.kobe.ui.adapter.BannerImageAdapter
 import com.flyn.kobe.ui.viewmodel.MainViewModel
+import com.youth.banner.indicator.CircleIndicator
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -35,15 +38,30 @@ class MainActivity : AppCompatActivity() {
                 .centerCrop()
                 .into(binding.navigationView.getHeaderView(0) as ImageView)
         })
+
+        viewModel.bannerData.observe(this, { it ->
+            val list = ArrayList<String>()
+            it.forEach {
+                list.add(it.image)
+            }
+            val adapter = BannerImageAdapter(list)
+            banner?.let {
+                it.addBannerLifecycleObserver(this)
+                it.indicator = CircleIndicator(this)
+                it.setBannerRound(20f)
+                it.adapter = adapter
+            }
+        })
     }
 
     private fun initView() {
-        viewModel.getVersion(this)
-        viewModel.getHeaderUrl()
+
     }
 
     private fun initData() {
-
+        viewModel.getVersion(this)
+        viewModel.getHeaderUrl()
+        viewModel.getBannerData()
     }
 
 }
