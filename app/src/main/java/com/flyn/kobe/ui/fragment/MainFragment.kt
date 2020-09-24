@@ -10,15 +10,19 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.ui.setupWithNavController
 import androidx.palette.graphics.Palette
+import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.flyn.kobe.R
+import com.flyn.kobe.bean.CategoryData
 import com.flyn.kobe.databinding.FragmentMainBinding
 import com.flyn.kobe.ui.activity.HostActivity
 import com.flyn.kobe.ui.adapter.BannerImageAdapter
 import com.flyn.kobe.ui.viewmodel.MainViewModel
 import com.flyn.kobe.utils.Util
 import com.flyn.kobe.utils.statusbar.StatusBarUtil
+import com.google.android.material.tabs.TabLayoutMediator
 import com.youth.banner.indicator.CircleIndicator
 import kotlinx.android.synthetic.main.fragment_main.*
+
 
 class MainFragment : Fragment() {
 
@@ -57,8 +61,8 @@ class MainFragment : Fragment() {
             })
         })
         viewModel.categoryData.observe(viewLifecycleOwner, {
-
-
+            (binding.viewPager.adapter as ChildFragmentStateAdapter).data = ArrayList(it)
+            binding.viewPager.adapter?.notifyDataSetChanged()
         })
     }
 
@@ -75,6 +79,12 @@ class MainFragment : Fragment() {
 
         binding.collapsingLayout.setCollapsedTitleTextColor(ContextCompat.getColor(activity as Context, R.color.white))
         binding.toolbar.setNavigationIcon(R.drawable.ic_menu_24_white)
+
+        binding.viewPager.adapter = ChildFragmentStateAdapter(this)
+        val tabLayoutMediator = TabLayoutMediator(tabLayout, binding.viewPager) { tab, position ->
+            tab.text = (binding.viewPager.adapter as ChildFragmentStateAdapter).data[position].title
+        }
+        tabLayoutMediator.attach()
     }
 
     private fun initData() {
@@ -82,5 +92,15 @@ class MainFragment : Fragment() {
         viewModel.getCategoryData()
     }
 
+    class ChildFragmentStateAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
 
+        var data = ArrayList<CategoryData>()
+
+        override fun getItemCount(): Int = data.size
+
+        override fun createFragment(position: Int): Fragment {
+            return ArticleListFragment(data[position])
+        }
+
+    }
 }
