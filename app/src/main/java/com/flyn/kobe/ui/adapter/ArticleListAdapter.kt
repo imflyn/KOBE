@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.flyn.kobe.BR
 import com.flyn.kobe.bean.ArticleData
 import com.flyn.kobe.databinding.LayoutArticleItemBinding
+import com.flyn.kobe.utils.ScreenUtil
 
 
 class ArticleListAdapter : RecyclerView.Adapter<ArticleListAdapter.ViewHolder>() {
@@ -23,6 +24,8 @@ class ArticleListAdapter : RecyclerView.Adapter<ArticleListAdapter.ViewHolder>()
         val binding: LayoutArticleItemBinding? = DataBindingUtil.getBinding(holder.itemView)
         binding?.setVariable(BR.article, data[position])
         binding?.executePendingBindings()
+
+        (binding?.root?.layoutParams as RecyclerView.LayoutParams).bottomMargin = ScreenUtil.dip2px(holder.itemView.context, if (data.size - 1 == position) 24f else 0f)
     }
 
     override fun getItemCount(): Int {
