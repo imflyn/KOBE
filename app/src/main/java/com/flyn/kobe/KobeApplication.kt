@@ -2,7 +2,7 @@ package com.flyn.kobe
 
 import android.annotation.SuppressLint
 import android.app.Application
-import android.util.Log
+import com.flyn.kobe.utils.L
 import java.lang.reflect.InvocationTargetException
 
 class KobeApplication : Application() {
@@ -32,16 +32,16 @@ class KobeApplication : Application() {
                 return sApplication
             }
             catch (e: NoSuchMethodException) {
-                Log.e("KOBE", "getApp 异常 ", e)
+                L.e("getApp 异常 ", e)
             }
             catch (e: IllegalAccessException) {
-                Log.e("KOBE", "getApp 异常 ", e)
+                L.e("getApp 异常 ", e)
             }
             catch (e: InvocationTargetException) {
-                Log.e("KOBE", "getApp 异常 ", e)
+                L.e("getApp 异常 ", e)
             }
             catch (e: ClassNotFoundException) {
-                Log.e("KOBE", "getApp 异常 ", e)
+                L.e("getApp 异常 ", e)
             }
 
             throw NullPointerException("u should init first")

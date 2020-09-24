@@ -5,13 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.flyn.kobe.databinding.FragmentFavBinding
+import com.flyn.kobe.databinding.FragmentArticleBinding
 
-class FavFragment : Fragment() {
+class ArticleFragment : Fragment() {
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val binding = FragmentFavBinding.inflate(inflater)
+        val binding = FragmentArticleBinding.inflate(inflater)
         return binding.root
     }
 }

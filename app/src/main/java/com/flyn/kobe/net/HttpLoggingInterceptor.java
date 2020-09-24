@@ -1,6 +1,6 @@
 package com.flyn.kobe.net;
 
-import android.util.Log;
+import com.flyn.kobe.utils.L;
 
 import java.io.EOFException;
 import java.io.IOException;
@@ -37,7 +37,7 @@ public final class HttpLoggingInterceptor implements Interceptor {
         Logger DEFAULT = new Logger() {
             @Override
             public void log(String message) {
-                Log.i("KOBE", message);
+                L.i(message);
             }
         };
     }

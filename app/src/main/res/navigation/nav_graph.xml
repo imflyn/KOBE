@@ -4,14 +4,30 @@
     android:id="@+id/nav_graph"
     app:startDestination="@id/main_fragment">
 
-
     <fragment
         android:id="@+id/main_fragment"
         android:name="com.flyn.kobe.ui.fragment.MainFragment">
+        <action
+            android:id="@+id/action_main_fragment_to_fav_fragment"
+            app:destination="@id/fav_fragment" />
+        <action
+            android:id="@+id/action_main_fragment_to_article_fragment"
+            app:destination="@id/article_fragment" />
     </fragment>
 
     <fragment
         android:id="@+id/fav_fragment"
         android:name="com.flyn.kobe.ui.fragment.FavFragment">
+        <action
+            android:id="@+id/action_fav_fragment_to_main_fragment"
+            app:destination="@id/main_fragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/article_fragment"
+        android:name="com.flyn.kobe.ui.fragment.ArticleFragment">
+        <action
+            android:id="@+id/action_article_fragment_to_main_fragment"
+            app:destination="@id/main_fragment" />
     </fragment>
 </navigation>
