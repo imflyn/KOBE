@@ -6,13 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.flyn.kobe.bean.CategoryData
 import com.flyn.kobe.databinding.FragmentArticleListBinding
+import com.flyn.kobe.ui.adapter.ArticleListAdapter
 import com.flyn.kobe.ui.viewmodel.ArticleListViewModel
 
 class ArticleListFragment(private val categoryData: CategoryData) : Fragment() {
 
     private lateinit var binding: FragmentArticleListBinding
+    private lateinit var adapter: ArticleListAdapter
     private val viewModel by viewModels<ArticleListViewModel> { defaultViewModelProviderFactory }
     private var pageNum = 0
 
@@ -32,6 +35,9 @@ class ArticleListFragment(private val categoryData: CategoryData) : Fragment() {
     }
 
     private fun initView() {
+        binding.recycleView.layoutManager = LinearLayoutManager(activity)
+        adapter = ArticleListAdapter()
+        binding.recycleView.adapter = adapter
     }
 
     private fun initData() {
@@ -41,6 +47,13 @@ class ArticleListFragment(private val categoryData: CategoryData) : Fragment() {
 
     private fun setListener() {
         viewModel.articleData.observe(viewLifecycleOwner, {
+            binding.swiperefresh.isRefreshing = false
+            if (pageNum == 0) {
+                adapter.data = ArrayList(it)
+            } else {
+                adapter.data.addAll(it)
+            }
+            adapter.notifyDataSetChanged()
         })
         binding.swiperefresh.setOnRefreshListener {
             pageNum = 0

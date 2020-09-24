@@ -5,10 +5,12 @@ import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.flyn.kobe.R
 
-class CustomBindingAdapter {
+object CustomBindingAdapter {
 
 
-    @BindingAdapter("url") fun url(view: ImageView, url: String) {
+    @JvmStatic
+    @BindingAdapter("url")
+    fun url(view: ImageView, url: String) {
         Glide.with(view.context)
             .load(url)
             .placeholder(R.mipmap.icon_image_default)

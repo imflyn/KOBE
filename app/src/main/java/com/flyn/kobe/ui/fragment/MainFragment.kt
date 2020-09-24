@@ -37,7 +37,6 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.viewModel = viewModel
-
         initView()
         initData()
         setListener()
@@ -88,8 +87,12 @@ class MainFragment : Fragment() {
     }
 
     private fun initData() {
-        viewModel.getBannerData()
-        viewModel.getCategoryData()
+        if (viewModel.bannerData.value!!.isEmpty()) {
+            viewModel.getBannerData()
+        }
+        if (viewModel.categoryData.value!!.isEmpty()) {
+            viewModel.getCategoryData()
+        }
     }
 
     class ChildFragmentStateAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
