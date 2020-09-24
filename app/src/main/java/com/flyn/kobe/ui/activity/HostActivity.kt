@@ -25,6 +25,7 @@ class HostActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityHostBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        binding.viewModel = viewModel
 
         initView()
         initData()

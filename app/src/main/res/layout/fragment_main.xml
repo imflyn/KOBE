@@ -45,68 +45,33 @@
             </com.google.android.material.appbar.CollapsingToolbarLayout>
         </com.google.android.material.appbar.AppBarLayout>
 
-        <androidx.core.widget.NestedScrollView
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-            <LinearLayout
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabLayout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:paddingTop="24dp">
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tabMode="scrollable"
+                app:tabTextColor="@color/white" />
 
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="16dip">
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/viewPager"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tabLayout" />
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="240dip"
-                        android:text="A"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Title" />
-                </FrameLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="240dip"
-                    android:layout_margin="16dip">
-
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="B"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Title" />
-
-                </FrameLayout>
-
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="16dip">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="240dip"
-                        android:text="C"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Title" />
-                </FrameLayout>
-
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="240dip"
-                    android:layout_margin="16dip">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="D"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Title" />
-
-                </FrameLayout>
-            </LinearLayout>
-        </androidx.core.widget.NestedScrollView>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

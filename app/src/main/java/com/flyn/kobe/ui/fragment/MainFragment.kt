@@ -41,11 +41,7 @@ class MainFragment : Fragment() {
 
     private fun setListener() {
         viewModel.bannerData.observe(viewLifecycleOwner, { it ->
-            val list = ArrayList<String>()
-            it.forEach {
-                list.add(it.image)
-            }
-            val adapter = BannerImageAdapter(list)
+            val adapter = BannerImageAdapter(it)
             binding.banner.let {
                 it.addBannerLifecycleObserver(this)
                 it.indicator = CircleIndicator(activity)
@@ -60,6 +56,10 @@ class MainFragment : Fragment() {
                 }
             })
         })
+        viewModel.categoryData.observe(viewLifecycleOwner, {
+
+
+        })
     }
 
     private fun initView() {
@@ -72,10 +72,14 @@ class MainFragment : Fragment() {
         val appBarConfiguration = hostActivity.getAppBarConfiguration()
         binding.collapsingLayout.setupWithNavController(toolbar, navController, appBarConfiguration)
         toolbar.setupWithNavController(navController, appBarConfiguration)
+
+        binding.collapsingLayout.setCollapsedTitleTextColor(ContextCompat.getColor(activity as Context, R.color.white))
+        binding.toolbar.setNavigationIcon(R.drawable.ic_menu_24_white)
     }
 
     private fun initData() {
         viewModel.getBannerData()
+        viewModel.getCategoryData()
     }
 
 
