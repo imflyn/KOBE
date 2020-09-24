@@ -44,12 +44,11 @@ class HostActivity : AppCompatActivity() {
                 .centerCrop()
                 .into(binding.navigationView.getHeaderView(0) as ImageView)
         })
-
     }
 
     private fun initView() {
         val navController = getNavController()
-        appBarConfiguration = AppBarConfiguration.Builder(navController.graph).build()
+        appBarConfiguration = AppBarConfiguration.Builder(navController.graph).setOpenableLayout(binding.drawerLayout).build()
         binding.navigationView.setupWithNavController(navController)
     }
 
@@ -60,6 +59,10 @@ class HostActivity : AppCompatActivity() {
 
     fun getNavController(): NavController {
         return (supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment).navController
+    }
+
+    fun getAppBarConfiguration(): AppBarConfiguration {
+        return appBarConfiguration
     }
 }
 

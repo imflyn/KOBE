@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import androidx.palette.graphics.Palette
 import com.flyn.kobe.R
@@ -56,7 +55,8 @@ class MainFragment : Fragment() {
                 it?.let {
                     val palette = Palette.from(it).generate()
                     val isLightColor = Util.isLightColor(palette.getDominantColor(ContextCompat.getColor(activity as Context, R.color.colorPrimary)))
-//                    actionBarDrawerToggle.drawerArrowDrawable.color = ContextCompat.getColor(this, if (isLightColor) R.color.black else R.color.white)
+                    binding.collapsingLayout.setCollapsedTitleTextColor(ContextCompat.getColor(activity as Context, if (isLightColor) R.color.black else R.color.white))
+                    binding.toolbar.setNavigationIcon(if (isLightColor) R.drawable.ic_menu_24_black else R.drawable.ic_menu_24_white)
                 }
             })
         })
@@ -65,13 +65,11 @@ class MainFragment : Fragment() {
     private fun initView() {
         toolbar.title = "首页"
         val hostActivity = activity as HostActivity
-        hostActivity.setSupportActionBar(toolbar)
 
         StatusBarUtil.setStatusBarColorForCollapsingToolbar(activity, binding.appbar, binding.collapsingLayout, toolbar, ContextCompat.getColor(activity as Context, R.color.colorPrimary))
-        binding.collapsingLayout.setCollapsedTitleTextColor(ContextCompat.getColor(activity as Context, R.color.white))
 
         val navController = hostActivity.getNavController()
-        val appBarConfiguration = AppBarConfiguration.Builder(navController.graph).build()
+        val appBarConfiguration = hostActivity.getAppBarConfiguration()
         binding.collapsingLayout.setupWithNavController(toolbar, navController, appBarConfiguration)
         toolbar.setupWithNavController(navController, appBarConfiguration)
     }
