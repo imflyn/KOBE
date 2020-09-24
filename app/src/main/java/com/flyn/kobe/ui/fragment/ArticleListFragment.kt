@@ -10,10 +10,11 @@ import com.flyn.kobe.bean.CategoryData
 import com.flyn.kobe.databinding.FragmentArticleListBinding
 import com.flyn.kobe.ui.viewmodel.ArticleListViewModel
 
-class ArticleListFragment(categoryData: CategoryData) : Fragment() {
+class ArticleListFragment(private val categoryData: CategoryData) : Fragment() {
 
     private lateinit var binding: FragmentArticleListBinding
     private val viewModel by viewModels<ArticleListViewModel> { defaultViewModelProviderFactory }
+    private var pageNum = 0
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentArticleListBinding.inflate(inflater)
@@ -34,9 +35,17 @@ class ArticleListFragment(categoryData: CategoryData) : Fragment() {
     }
 
     private fun initData() {
+        binding.swiperefresh.isRefreshing = true
+        viewModel.getArticleData(pageNum, category = categoryData)
     }
 
     private fun setListener() {
+        viewModel.articleData.observe(viewLifecycleOwner, {
+        })
+        binding.swiperefresh.setOnRefreshListener {
+            pageNum = 0
+            viewModel.getArticleData(pageNum, category = categoryData)
+        }
     }
 
 
