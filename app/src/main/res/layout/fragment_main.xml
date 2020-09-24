@@ -22,12 +22,12 @@
                 android:id="@+id/collapsing_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:contentScrim="@color/colorPrimary"
+                app:contentScrim="@color/colorPrimaryDark"
                 app:expandedTitleMarginEnd="64dp"
                 app:expandedTitleMarginStart="48dp"
                 app:expandedTitleTextAppearance="@style/CollapsingToolbarLayoutExpandedTextStyle"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed"
-                app:statusBarScrim="@color/colorPrimary">
+                app:statusBarScrim="@color/colorPrimaryDark">
 
                 <com.youth.banner.Banner
                     android:id="@+id/banner"

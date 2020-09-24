@@ -25,7 +25,6 @@ class MainFragment : Fragment() {
 
     private lateinit var binding: FragmentMainBinding
     private val viewModel by viewModels<MainViewModel> { defaultViewModelProviderFactory }
-    private lateinit var appBarConfiguration: AppBarConfiguration
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentMainBinding.inflate(inflater)
@@ -72,7 +71,7 @@ class MainFragment : Fragment() {
         binding.collapsingLayout.setCollapsedTitleTextColor(ContextCompat.getColor(activity as Context, R.color.white))
 
         val navController = hostActivity.getNavController()
-        appBarConfiguration = AppBarConfiguration.Builder(navController.graph).build()
+        val appBarConfiguration = AppBarConfiguration.Builder(navController.graph).build()
         binding.collapsingLayout.setupWithNavController(toolbar, navController, appBarConfiguration)
         toolbar.setupWithNavController(navController, appBarConfiguration)
     }
