@@ -22,9 +22,9 @@ class ArticleListAdapter : RecyclerView.Adapter<ArticleListAdapter.ViewHolder>()
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val binding: LayoutArticleItemBinding? = DataBindingUtil.getBinding(holder.itemView)
+
         binding?.setVariable(BR.article, data[position])
         binding?.executePendingBindings()
-
         (binding?.root?.layoutParams as RecyclerView.LayoutParams).bottomMargin = ScreenUtil.dip2px(holder.itemView.context, if (data.size - 1 == position) 24f else 0f)
     }
 

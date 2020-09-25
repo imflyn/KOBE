@@ -82,7 +82,6 @@ class ArticleListFragment(private val categoryData: CategoryData) : Fragment() {
                 }
             }
         })
-
     }
 
 
