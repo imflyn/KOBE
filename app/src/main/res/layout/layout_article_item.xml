@@ -40,7 +40,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dip"
                 android:layout_marginRight="16dip"
-                android:text="@{article.createdAt}"
+                android:text="@{article.publishedAt}"
                 android:textColor="@color/cl_666"
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
