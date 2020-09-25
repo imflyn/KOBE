@@ -62,6 +62,7 @@ class MainFragment : Fragment() {
         viewModel.categoryData.observe(viewLifecycleOwner, {
             (binding.viewPager.adapter as ChildFragmentStateAdapter).data = ArrayList(it)
             binding.viewPager.adapter?.notifyDataSetChanged()
+            binding.viewPager.offscreenPageLimit = if (it.isNotEmpty()) it.size else 1
         })
     }
 
