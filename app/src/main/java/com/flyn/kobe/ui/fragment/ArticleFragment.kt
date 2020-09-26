@@ -1,22 +1,25 @@
 package com.flyn.kobe.ui.fragment
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.navigation.ui.setupWithNavController
+import com.flyn.kobe.R
 import com.flyn.kobe.databinding.FragmentArticleBinding
 import com.flyn.kobe.ui.activity.HostActivity
+import com.flyn.kobe.ui.viewmodel.ArticleViewModel
 import com.flyn.kobe.utils.Util
 import kotlinx.android.synthetic.main.fragment_main.*
+
 
 class ArticleFragment : Fragment() {
 
     private val args: ArticleFragmentArgs by navArgs()
     private lateinit var binding: FragmentArticleBinding
+    private val viewModel by viewModels<ArticleViewModel> { defaultViewModelProviderFactory }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentArticleBinding.inflate(inflater)
@@ -37,6 +40,7 @@ class ArticleFragment : Fragment() {
 
         val hostActivity = activity as HostActivity
         hostActivity.setSupportActionBar(toolbar)
+        setHasOptionsMenu(true)
 
         val navController = hostActivity.getNavController()
         val appBarConfiguration = hostActivity.getAppBarConfiguration()
@@ -48,7 +52,24 @@ class ArticleFragment : Fragment() {
     }
 
     private fun setListener() {
-
+        viewModel.isFav.observe(viewLifecycleOwner, {
+            activity?.invalidateOptionsMenu()
+        })
     }
 
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_artlcie, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+        menu.getItem(0).setIcon(if (viewModel.isFav.value!!) R.mipmap.ic_fav else R.mipmap.ic_fav_white)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.item_fav -> {
+                viewModel.toggleFavStatus(args.url, args.title, args.image)
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
 }
