@@ -23,21 +23,21 @@ class ArticleListFragment(private val categoryData: CategoryData) : Fragment() {
     private var pageNum = 1
     private var loadMoreEnable = true
     private var isLoading = false
+    private var rootView: View? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        binding = FragmentArticleListBinding.inflate(inflater)
-        return binding.root
+        if (rootView == null) {
+            binding = FragmentArticleListBinding.inflate(inflater)
+            rootView = binding.root
+            binding.viewModel = viewModel
+
+            initView()
+            initData()
+            setListener()
+        }
+        return rootView
     }
 
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        binding.viewModel = viewModel
-
-        initView()
-        initData()
-        setListener()
-    }
 
     private fun initView() {
         binding.recycleView.layoutManager = LinearLayoutManager(activity)

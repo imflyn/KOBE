@@ -20,8 +20,6 @@ import com.youth.banner.adapter.BannerAdapter
 
 class BannerImageAdapter(bannerData: List<BannerData>) : BannerAdapter<BannerData, BannerImageAdapter.BannerViewHolder>(bannerData) {
 
-    val drawableLiveData = MutableLiveData<Bitmap?>()
-
     override fun onCreateHolder(parent: ViewGroup?, viewType: Int): BannerViewHolder {
         val view: View = LayoutInflater.from(parent!!.context).inflate(R.layout.banner_image_title, parent, false)
         return BannerViewHolder(view)
@@ -37,7 +35,6 @@ class BannerImageAdapter(bannerData: List<BannerData>) : BannerAdapter<BannerDat
                 }
 
                 override fun onResourceReady(resource: Bitmap?, model: Any?, target: Target<Bitmap>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
-                    drawableLiveData.postValue(resource)
                     return false
                 }
             })
