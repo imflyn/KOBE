@@ -8,10 +8,12 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.palette.graphics.Palette
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.flyn.kobe.R
+import com.flyn.kobe.bean.BannerData
 import com.flyn.kobe.bean.CategoryData
 import com.flyn.kobe.databinding.FragmentMainBinding
 import com.flyn.kobe.ui.activity.HostActivity
@@ -49,6 +51,11 @@ class MainFragment : Fragment() {
                 it.addBannerLifecycleObserver(this)
                 it.indicator = CircleIndicator(activity)
                 it.adapter = adapter
+                it.setOnBannerListener { data, position ->
+                    val banner = data as BannerData
+                    val action = MainFragmentDirections.actionMainFragmentToArticleFragment(banner.url, banner.title, banner.image)
+                    findNavController().navigate(action)
+                }
             }
             adapter.drawableLiveData.observe(viewLifecycleOwner, {
                 it?.let {

@@ -14,6 +14,7 @@ import com.flyn.kobe.utils.ScreenUtil
 class ArticleListAdapter : RecyclerView.Adapter<ArticleListAdapter.ViewHolder>() {
 
     var data = ArrayList<ArticleData>()
+    lateinit var onItemClickListener: OnItemClickListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = LayoutArticleItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -26,6 +27,10 @@ class ArticleListAdapter : RecyclerView.Adapter<ArticleListAdapter.ViewHolder>()
         binding?.setVariable(BR.article, data[position])
         binding?.executePendingBindings()
         (binding?.root?.layoutParams as RecyclerView.LayoutParams).bottomMargin = ScreenUtil.dip2px(holder.itemView.context, if (data.size - 1 == position) 24f else 0f)
+
+        binding.root.setOnClickListener {
+            onItemClickListener.onItemClick(holder.itemView, position)
+        }
     }
 
     override fun getItemCount(): Int {
@@ -34,4 +39,9 @@ class ArticleListAdapter : RecyclerView.Adapter<ArticleListAdapter.ViewHolder>()
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     }
+
+    interface OnItemClickListener {
+        fun onItemClick(view: View?, position: Int)
+    }
+
 }

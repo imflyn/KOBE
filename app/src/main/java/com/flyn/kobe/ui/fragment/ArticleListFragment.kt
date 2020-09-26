@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.flyn.kobe.R
@@ -82,7 +83,14 @@ class ArticleListFragment(private val categoryData: CategoryData) : Fragment() {
                 }
             }
         })
+
+
+        adapter.onItemClickListener = object : ArticleListAdapter.OnItemClickListener {
+            override fun onItemClick(view: View?, position: Int) {
+                val article = adapter.data[position]
+                val action = MainFragmentDirections.actionMainFragmentToArticleFragment(article.url, article.title, if (article.images == null || article.images.isEmpty()) "" else article.images[0])
+                view?.findNavController()?.navigate(action)
+            }
+        }
     }
-
-
 }
