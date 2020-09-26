@@ -49,19 +49,19 @@ class ArticleFragment : Fragment() {
 
     private fun initData() {
         binding.webView.loadUrl(args.url)
+        viewModel.getFav(args.url)
     }
 
     private fun setListener() {
-        viewModel.isFav.observe(viewLifecycleOwner, {
+        viewModel.favBean.observe(viewLifecycleOwner, {
             activity?.invalidateOptionsMenu()
         })
     }
 
-
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_artlcie, menu)
         super.onCreateOptionsMenu(menu, inflater)
-        menu.getItem(0).setIcon(if (viewModel.isFav.value!!) R.mipmap.ic_fav else R.mipmap.ic_fav_white)
+        menu.getItem(0).setIcon(if (viewModel.favBean.value == null) R.mipmap.ic_fav_white else R.mipmap.ic_fav)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
