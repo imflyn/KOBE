@@ -15,7 +15,6 @@ import kotlinx.coroutines.withContext
 class ArticleListViewModel : ViewModel() {
 
 
-    var bannerData = MutableLiveData<List<ArticleData>>(ArrayList())
     var articleData = MutableLiveData<List<ArticleData>>(ArrayList())
 
 
